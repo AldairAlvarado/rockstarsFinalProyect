@@ -1,39 +1,56 @@
-import logo from './logo.svg';
+import * as React from 'react';
 import './App.css';
 import {} from '@mui/material';
-import {Route, BrowserRouter as Router, Switch, Link} from "react-router-dom";
-import Home from "./Pages/Home";
-import Compras from "./Pages/Compras";
+import {Route, BrowserRouter as Router, Routes, Link} from "react-router-dom";
+import Home from './Pages/Home';
 import Login from "./Pages/Login";
-import SearchResult from "./Pages/SearchResult";
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
+const ISLOGGED=true
+
+const RenderToolBar = () => {
+  if (ISLOGGED){
+      return (
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static" style={{backgroundColor:"black"}}>
+            <Toolbar>
+              <IconButton
+                size="large"
+                edge="start"
+                style={{color:"#FFD700"}}
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography style={{color:"#FFD700"}} variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                Penguin Music
+              </Typography>
+              <Button style={{color:"#FFD700"}}>¡Hola!</Button>
+            </Toolbar>
+          </AppBar>
+        </Box>
+      );
+  }
+  else return <div></div>
+}
 
 function App() {
   return (
+    <>
+    <RenderToolBar />
     <Router>
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-    <Switch>
-      <Route path="/compras" component={Compras} />
-      <Route path="/login" component={Login} />
-      <Route path="/searchresult" component={SearchResult} />
-      <Route path="/" component={Home} />
-    </Switch>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
     </Router>
+    </>
   );
 }
 
